@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var searchSchema = new mongoose.Schema({
+var youtubeSchema = new mongoose.Schema({
   keyword: { type: String, required: true },
   title: { type: String },
   description: { type: String },
@@ -8,4 +8,4 @@ var searchSchema = new mongoose.Schema({
   channelTitle: { type: String }
 });
 
-module.exports = exports = mongoose.model('searchtube', searchSchema);
+module.exports = exports = mongoose.model('youtube', youtubeSchema);
