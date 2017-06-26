@@ -31,3 +31,13 @@ youtubeRouter.get('/categories', (req, res) => {
     });
   });
 });
+
+youtubeRouter.put('/categories/:id', bodyParser, (req, res) => {
+  var youtubeData = req.body;
+  delete youtubeData._id;
+  Youtube.update({ _id: req.params.id }, youtubeData, (err) => {
+    if (err) console.log(err);
+
+    res.status(200).json({ msg: 'keyword has been changed' });
+  });
+});
