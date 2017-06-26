@@ -41,3 +41,11 @@ youtubeRouter.put('/categories/:id', bodyParser, (req, res) => {
     res.status(200).json({ msg: 'keyword has been changed' });
   });
 });
+
+youtubeRouter.delete('/categories/:id', (req, res) => {
+  Youtube.remove({ _id: req.params.id }, (err) => {
+    if (err) console.log(err);
+
+    res.status(200).json({ msg: 'category deleted' });
+  });
+});
