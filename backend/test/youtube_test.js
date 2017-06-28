@@ -9,18 +9,20 @@ const port = process.env.PORT = 5000;
 
 const Youtube = require(__dirname + '/../models/youtube');
 
-
-describe('the server', () => {
+describe('the POST methods', () => {
   before((done) => {
     setup(done);
   });
   after((done) => {
     teardown(done);
   });
-});
-describe('the POST methods', () => {
-  after((done) => {
-    teardown(done);
+  it('should create a category', (done) => {
+    request('localhost:' + port)
+    .post('/api/categories')
+    .send({ keyword: 'surfing' })
+    .end((err, res) => {
+      expect(err).to.eql(null);
+      done();
+    });
   });
-  it('should search for videos')
 });
