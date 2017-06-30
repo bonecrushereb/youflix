@@ -13,9 +13,8 @@ youtubeRouter.post('/categories', bodyParser, (req, res) => {
 });
 
 youtubeRouter.get('/categories', (req, res) => {
-  Youtube.findOne( null, (err, data) => {
+  Youtube.find( null, (err, data) => {
     if (err) console.log(err);
-    // res.status(200).json(data);
     var address = 'https://www.googleapis.com/youtube/v3/search';
     superAgent
     .get(address)
