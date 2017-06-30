@@ -1,8 +1,8 @@
 const gulp = require('gulp');
 const eslint = require('gulp-eslint');
 const mocha = require('gulp-mocha');
-const fork = require('child-process').fork;
-const spawn = require('child-process').spawn;
+const fork = require('child_process').fork;
+const spawn = require('child_process').spawn;
 const webpack = require('webpack-stream');
 
 var appFiles = ['*.js', './lib/**/*.js', './backend/routes/**/*.js', './backend/models/**/*.js'];

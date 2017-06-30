@@ -9,7 +9,7 @@ app.use('/api', youtubeRouter);
 
 app.use(express.static(__dirname + '/build'));
 
-app.use((req,res) => {
+app.use((req, res) => {
   res.status(404).send('Page not found');
 });
 
