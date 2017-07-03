@@ -22388,7 +22388,9 @@
 	  loadCategoryData: function() {
 	    this.serverRequest = request.get(baseUrl + '/api/categories')
 	    .end(function(err, res) {
-	      var categories = JSON.parse(res.text).data;
+	      // console.log(res);
+	      var categories = JSON.parse(res.body.data);
+	      console.log(categories);
 	      this.setState({ categories: categories, });
 	    }.bind(this))
 	  },
@@ -22441,15 +22443,15 @@
 	
 	const NewCategory = React.createClass({displayName: "NewCategory",
 	  addCat: function(e) {
-	    var categorys = this;
+	    var categories = this;
 	    e.preventDefault();
 	    var categoryValue = e.target.categoryinput.value;
 	    e.target.categoryinput.value = '';
 	    this.serverRequest = request.post(baseUrl + '/api/categories')
 	    .send({ keyword: categoryValue })
 	    .end(function(err, res) {
-	      categorys.props.data.unshift(res.body.data);
-	      categorys.setState(categorys.props.data);
+	      categories.props.data.unshift(res.body.data);
+	      categories.setState(categories.props.data);
 	    }.bind(this));
 	  },
 	  render: function() {
