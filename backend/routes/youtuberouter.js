@@ -6,16 +6,15 @@ var youtubeRouter = module.exports = exports = Router();
 
 youtubeRouter.post('/categories', bodyParser, (req, res) => {
   var newYoutubeSearch = new Youtube(req.body);
-  console.log(newYoutubeSearch);
   newYoutubeSearch.save((err, data) => {
     if (err) return console.log(err);
     res.status(200).json(data);
   });
 });
 
-youtubeRouter.get('/categories', (req, res) => {
-  console.log(req.headers);
-  Youtube.findOne({ keyword: 'surfing' }, (err, data) => {
+youtubeRouter.get('/categories/:category', (req, res) => {
+  console.log(req.params);
+  Youtube.findOne({ keyword: req.params.category }, (err, data) => {
     if (err) console.log(err);
     console.log(data.keyword);
     var address = 'https://www.googleapis.com/youtube/v3/search';
