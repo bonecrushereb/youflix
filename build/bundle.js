@@ -22380,18 +22380,18 @@
 /* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {/** @jsx React.DOM */const React = __webpack_require__(1);
+	/** @jsx React.DOM */const React = __webpack_require__(1);
 	const request = __webpack_require__(187);
-	const baseUrl = 'http://localhost:' + process.env.PORT;
+	const baseUrl = 'http://localhost:5555';
 	
 	const Categories = React.createClass({displayName: "Categories",
 	  loadCategoryData: function() {
 	    this.serverRequest = request.get(baseUrl + '/api/categories')
 	    .end(function(err, res) {
 	      // console.log(res);
-	      var categories = JSON.parse(res.body.data);
-	      console.log(categories);
-	      this.setState({ categories: categories, });
+	      var category = JSON.parse(res.text).text;
+	      console.log(category);
+	      this.setState({ categroy: category,});
 	    }.bind(this))
 	  },
 	
@@ -22469,8 +22469,7 @@
 	});
 	
 	module.exports = exports = Categories;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
 
 /***/ }),
 /* 187 */

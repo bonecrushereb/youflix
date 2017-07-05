@@ -1,15 +1,15 @@
 const React = require('react');
 const request = require('superagent');
-const baseUrl = 'http://localhost:' + process.env.PORT;
+const baseUrl = 'http://localhost:5555';
 
 const Categories = React.createClass({
   loadCategoryData: function() {
     this.serverRequest = request.get(baseUrl + '/api/categories')
     .end(function(err, res) {
       // console.log(res);
-      var categories = JSON.parse(res.body.data);
-      console.log(categories);
-      this.setState({ categories: categories, });
+      var category = JSON.parse(res.text).text;
+      console.log(category);
+      this.setState({ categroy: category,});
     }.bind(this))
   },
 

@@ -6,6 +6,7 @@ var youtubeRouter = module.exports = exports = Router();
 
 youtubeRouter.post('/categories', bodyParser, (req, res) => {
   var newYoutubeSearch = new Youtube(req.body);
+  console.log(newYoutubeSearch);
   newYoutubeSearch.save((err, data) => {
     if (err) return console.log(err);
     res.status(200).json(data);
@@ -13,13 +14,15 @@ youtubeRouter.post('/categories', bodyParser, (req, res) => {
 });
 
 youtubeRouter.get('/categories', (req, res) => {
-  Youtube.find( null, (err, data) => {
+  console.log(req.headers);
+  Youtube.findOne({ keyword: 'surfing' }, (err, data) => {
     if (err) console.log(err);
+    console.log(data.keyword);
     var address = 'https://www.googleapis.com/youtube/v3/search';
     superAgent
     .get(address)
     .query({ part: 'snippet',
-            maxResults: 25,
+            maxResults: 2,
             q: '' + data.keyword,
             key: process.env.YOUTUBE_API_KEY
     })

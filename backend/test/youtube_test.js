@@ -60,7 +60,7 @@ describe('the server', () => {
     it('should change the keyword\'s identity on a PUT request', (done) => {
       request('localhost:' + port)
       .put('/api/categories/' + this.youtube._id)
-      .send({ keyword: 'developer' })
+      .send({ keyword: 'javascript' })
       .end((err, res) => {
         expect(err).to.eql(null);
         expect(res.body.msg).to.eql('keyword has been changed');
