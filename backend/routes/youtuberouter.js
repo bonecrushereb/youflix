@@ -21,7 +21,7 @@ youtubeRouter.get('/categories/:category', (req, res) => {
     superAgent
     .get(address)
     .query({ part: 'snippet',
-            maxResults: 2,
+            maxResults: 50,
             q: '' + data.keyword,
             key: process.env.YOUTUBE_API_KEY
     })
