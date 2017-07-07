@@ -3,6 +3,7 @@ const eslint = require('gulp-eslint');
 const mocha = require('gulp-mocha');
 const fork = require('child_process').fork;
 const spawn = require('child_process').spawn;
+const babel = require('gulp-babel');
 const webpack = require('webpack-stream');
 
 var appFiles = ['*.js', './lib/**/*.js', './backend/routes/**/*.js', './backend/models/**/*.js'];
@@ -39,6 +40,14 @@ gulp.task('lint:testFiles', () => {
   return gulp.src(testFiles)
     .pipe(eslint())
     .pipe(eslint.format());
+});
+
+gulp.task('babel', () => {
+  return gulp.src('./frontend/src/app.js')
+    .pipe(babel({
+      presets: ['es2015']
+    }))
+    .pipe(gulp.dest('./build'));
 });
 
 gulp.task('lint:appFiles', () => {
