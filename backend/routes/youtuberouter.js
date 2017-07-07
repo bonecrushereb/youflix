@@ -12,14 +12,16 @@ youtubeRouter.post('/categories', bodyParser, (req, res) => {
   });
 });
 
-youtubeRouter.get('/categories', (req, res) => {
-  Youtube.find( null, (err, data) => {
+youtubeRouter.get('/categories/:category', (req, res) => {
+  console.log(req.params);
+  Youtube.findOne({ keyword: req.params.category }, (err, data) => {
     if (err) console.log(err);
+    console.log(data.keyword);
     var address = 'https://www.googleapis.com/youtube/v3/search';
     superAgent
     .get(address)
     .query({ part: 'snippet',
-            maxResults: 25,
+            maxResults: 50,
             q: '' + data.keyword,
             key: process.env.YOUTUBE_API_KEY
     })

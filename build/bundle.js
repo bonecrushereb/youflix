@@ -22380,97 +22380,109 @@
 /* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {/** @jsx React.DOM */const React = __webpack_require__(1);
+	/** @jsx React.DOM */const React = __webpack_require__(1);
 	const request = __webpack_require__(187);
-	const baseUrl = 'http://localhost:' + process.env.PORT;
-	
-	const Categories = React.createClass({displayName: "Categories",
-	  loadCategoryData: function() {
-	    this.serverRequest = request.get(baseUrl + '/api/categories')
-	    .end(function(err, res) {
-	      // console.log(res);
-	      var categories = JSON.parse(res.body.data);
-	      console.log(categories);
-	      this.setState({ categories: categories, });
-	    }.bind(this))
-	  },
-	
-	  getInitialState: function() {
-	    return {
-	      categories: []
-	    };
-	  },
-	
-	  componentDidMount: function() {
-	    this.loadCategoryData();
-	  },
-	
-	  render: function() {
-	    return (
-	      React.createElement("div", {className: "categories-added"}, 
-	        React.createElement("h1", null, "Categories"), 
-	        React.createElement(NewCategory, {data: this.state.categories})
-	      )
-	    )
-	  }
-	});
-	
-	const CategoryList = React.createClass({displayName: "CategoryList",
-	  handleDelete: function(e) {
-	    var categorys = this;
-	    var tv = e.target.value;
-	    var category = this.props.data[tv];
-	    var categoryId = cateogy.id_str;
-	    return this.serverRequest = request.del(baseUrl + '/api/categories/' + categoryId)
-	    .end(function(err, res) {
-	      if (err) return console.log(err);
-	      categorys.props.data.splice(tv, 1);
-	      categorys.setState(categorys.props.data);
-	    }.bind(this));
-	  },
-	  render: function() {
-	    return (
-	      React.createElement("ul", {className: "categories"}, 
-	        this.props.data.map(function(category, categoryIndex) {
-	          return React.createElement("li", {key: categoryIndex}, 
-	            category.text, React.createElement("button", {className: "btn btn-default", category: category, onClick: this.handleDelete, value: categoryIndex}, "Delete")
-	          )
-	        }.bind(this))
-	      )
-	    )
-	  }
-	});
+	const baseUrl = 'http://localhost:5555';
 	
 	const NewCategory = React.createClass({displayName: "NewCategory",
-	  addCat: function(e) {
-	    var categories = this;
-	    e.preventDefault();
-	    var categoryValue = e.target.categoryinput.value;
-	    e.target.categoryinput.value = '';
-	    this.serverRequest = request.post(baseUrl + '/api/categories')
-	    .send({ keyword: categoryValue })
-	    .end(function(err, res) {
-	      categories.props.data.unshift(res.body.data);
-	      categories.setState(categories.props.data);
-	    }.bind(this));
-	  },
-	  render: function() {
-	    return (
-	    React.createElement("div", null, 
-	    React.createElement("form", {onSubmit: this.addCat}, 
-	      React.createElement("input", {type: "text", name: "categoryinput"}), 
-	      React.createElement("button", null, "add Category")
-	    ), 
-	    React.createElement(CategoryList, {data: this.props.data})
-	    )
+	    render: function() {
+	      return (
+	      React.createElement("div", null, 
+	      React.createElement("form", null, 
+	        React.createElement("input", {type: "text", name: "categoryinput"}), 
+	        React.createElement("button", null, "add Category")
+	      )
+	      )
 	
-	  )
+	    )
 	  }
 	});
 	
-	module.exports = exports = Categories;
+	// const Categories = React.createClass({
+	//   loadCategoryData: function() {
+	//     this.serverRequest = request.get(baseUrl + '/api/categories/${this.state.userinput}')
+	//     .end(function(err, res) {
+	//       console.log(res.body.text);
+	//       var category = JSON.parse(res.body);
+	//       this.setState({ category: category,});
+	//     }.bind(this))
+	//   },
+	//
+	//   getInitialState: function() {
+	//     return {
+	//       categories: []
+	//     };
+	//   },
+	//
+	//   componentDidMount: function() {
+	//     this.serverRequest.bind(this);
+	//   },
+	//
+	//   render: function() {
+	//     return (
+	//       <div className="categories-added">
+	//         <h1>Categories</h1>
+	//         <NewCategory data={this.state.categories}/>
+	//       </div>
+	//     )
+	//   }
+	// });
+	//
+	// const CategoryList = React.createClass({
+	//   handleDelete: function(e) {
+	//     var categorys = this;
+	//     var tv = e.target.value;
+	//     var category = this.props.data[tv];
+	//     var categoryId = cateogy.id_str;
+	//     return this.serverRequest = request.del(baseUrl + '/api/categories/' + categoryId)
+	//     .end(function(err, res) {
+	//       if (err) return console.log(err);
+	//       categorys.props.data.splice(tv, 1);
+	//       categorys.setState(categorys.props.data);
+	//     }.bind(this));
+	//   },
+	//   render: function() {
+	//     return (
+	//       <ul className="categories">
+	//         {this.props.data.map(function(category, categoryIndex) {
+	//           return <li key={categoryIndex}>
+	//             {category.text}<button className="btn btn-default" category={category} onClick={this.handleDelete} value={categoryIndex}>Delete</button>
+	//           </li>
+	//         }.bind(this))}
+	//       </ul>
+	//     )
+	//   }
+	// });
+	//
+	// const NewCategory = React.createClass({
+	//   addCat: function(e) {
+	//     var categories = this;
+	//     e.preventDefault();
+	//     var categoryValue = e.target.categoryinput.value;
+	//     e.target.categoryinput.value = '';
+	//     this.serverRequest = request.post(baseUrl + '/api/categories')
+	//     .send({ keyword: categoryValue })
+	//     .end(function(err, res) {
+	//       categories.props.data.unshift(res.body.data);
+	//       categories.setState(categories.props.data);
+	//     }.bind(this));
+	//   },
+	//   render: function() {
+	//     return (
+	//     <div>
+	//     <form onSubmit={this.addCat}>
+	//       <input type="text" name="categoryinput" />
+	//       <button>add Category</button>
+	//     </form>
+	//     <CategoryList data={this.props.data}/>
+	//     </div>
+	//
+	//   )
+	//   }
+	// });
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+	// module.exports = exports = Categories;
+
 
 /***/ }),
 /* 187 */
