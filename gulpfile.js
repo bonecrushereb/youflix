@@ -1,29 +1,42 @@
 const gulp = require('gulp');
 const eslint = require('gulp-eslint');
 const mocha = require('gulp-mocha');
-const fork = require('child_process').fork;
-const spawn = require('child_process').spawn;
-const babel = require('gulp-babel');
+const cp = require('child-process');
 const webpack = require('webpack-stream');
+const sass = require('gulp-sass');
+const maps = require('gulp-source-maps');
+const minifyCss = require('gulp-minify-css');
 
-var appFiles = ['*.js', './lib/**/*.js', './backend/routes/**/*.js', './backend/models/**/*.js'];
-var testFiles = ['./backend/test/**/*.js'];
+let children = [];
+let appFiles = ['*.js', './lib/**/*.js', './backend/routes/**/*.js', './backend/models/**/*.js'];
+let testFiles = ['./backend/test/**/*.js'];
 
 gulp.task('webpack:dev', () => {
   return gulp.src('./frontend/js/index.jsx')
   .pipe(webpack({
     devtool: 'source-map',
-    module: {
-      loaders: [
-        { test: /\.css$/, loader: 'style.css' },
-        { test: /\.jsx$/, loader: 'jsx-loader?insertPragma=React.DOM&harmony' }
-      ]
-    },
     output: {
       filename: 'bundle.js'
     }
   }))
   .pipe(gulp.dest('./build'));
+});
+
+gulp.task('webpack:test', () => {
+  gulp.src('./frontend/test/test_entry.js')
+    .pipe(webpack({
+      devtool: 'source-map',
+      module: {
+        loaders: [{
+          test: /\.html$/,
+          loader: 'html'
+        }]
+      },
+      output: {
+        filename: 'bundle.js'
+      }
+    }))
+    .pipe(gulp.dest('./test'));
 });
 
 gulp.task('static:dev', ['webpack:dev'], () => {
@@ -42,38 +55,36 @@ gulp.task('lint:testFiles', () => {
     .pipe(eslint.format());
 });
 
-gulp.task('babel', () => {
-  return gulp.src('./frontend/src/app.js')
-    .pipe(babel({
-      presets: ['es2015']
-    }))
-    .pipe(gulp.dest('./build'));
-});
-
 gulp.task('lint:appFiles', () => {
   return gulp.src(appFiles)
     .pipe(eslint())
     .pipe(eslint.format());
 });
 
-var children = [];
-gulp.task('start:server', ['static:dev'], () => {
-  children.push(fork('server.js'));
-  children.push(spawn('webdriver-manager', ['start']));
+gulp.task('sass:dev', () => {
+  return gulp.src('app/sass/**/*.scss')
+    .pipe(maps.init())
+    .pipe(sass().on('error', sass.logError))
+    .pipe(minifyCss())
+    .pipe(maps.write())
+    .pipe(gulp.dest('./build/css'));
 });
 
-gulp.task('build:dev', ['webpack:dev', 'static:dev']);
+gulp.task('sass:watch', () => {
+  gulp.watch('./app/sass/**/*.scsss');
+});
+
+gulp.task('start:server', () => {
+  children.push(cp.fork('server.js'));
+  children.push(cp.spawn('mongod', ['--dbpath=./db']));
+  children.push(cp.fork('app_server.js', [], { env: {
+    MONGODB_URI: 'mongodb://localhost/hue_test_db' } }));
+  children.push(cp.spawn('webdriver-manager', ['start']));
+});
+
+gulp.task('build:dev', ['webpack:dev', 'static:dev', 'sass:dev']);
+gulp.task('style:dev', ['sass:dev', 'image:dev', 'build:dev']);
 gulp.task('test', ['test:mocha']);
 gulp.task('lint', ['lint:testFiles', 'lint:appFiles']);
-gulp.task('watch', () => {
-  gulp.watch(testFiles, ['test:mocha', 'lint:testFiles']);
-  gulp.watch(appFiles, ['test:mocha', 'lint:appFiles']);
-});
 
-gulp.task('default', ['build:dev', 'watch', 'lint', 'test']);
-
-process.on('exit', () => {
-  children.forEach((child) => {
-    child.kill('SIGINT');
-  });
-});
+gulp.task('default', ['lint', 'test']);
