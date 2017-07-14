@@ -15,14 +15,14 @@ youtubeRouter.post('/categories', bodyParser, (req, res) => {
 youtubeRouter.get('/categories/:category', (req, res) => {
   console.log(req.params);
   Youtube.findOne({ keyword: req.params.category }, (err, data) => {
+    console.log(data);
     if (err) console.log(err);
-    console.log(data.keyword);
     var address = 'https://www.googleapis.com/youtube/v3/search';
     superAgent
     .get(address)
     .query({ part: 'snippet',
             maxResults: 50,
-            q: '' + data.keyword,
+            q: 'surfing',
             key: process.env.YOUTUBE_API_KEY
     })
     .timeout(1000)

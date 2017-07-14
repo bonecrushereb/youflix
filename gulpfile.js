@@ -1,10 +1,10 @@
 const gulp = require('gulp');
 const eslint = require('gulp-eslint');
 const mocha = require('gulp-mocha');
-const cp = require('child-process');
+const cp = require('child_process');
 const webpack = require('webpack-stream');
 const sass = require('gulp-sass');
-const maps = require('gulp-source-maps');
+const maps = require('gulp-sourcemaps');
 const minifyCss = require('gulp-minify-css');
 
 let children = [];
