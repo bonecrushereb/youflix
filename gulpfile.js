@@ -12,7 +12,7 @@ let appFiles = ['*.js', './lib/**/*.js', './backend/routes/**/*.js', './backend/
 let testFiles = ['./backend/test/**/*.js'];
 
 gulp.task('webpack:dev', () => {
-  return gulp.src('./frontend/js/index.jsx')
+  return gulp.src('./app/js/entry.js')
   .pipe(webpack({
     devtool: 'source-map',
     output: {
@@ -23,7 +23,7 @@ gulp.task('webpack:dev', () => {
 });
 
 gulp.task('webpack:test', () => {
-  gulp.src('./frontend/test/test_entry.js')
+  gulp.src('./test/test_entry.js')
     .pipe(webpack({
       devtool: 'source-map',
       module: {
@@ -40,7 +40,7 @@ gulp.task('webpack:test', () => {
 });
 
 gulp.task('static:dev', ['webpack:dev'], () => {
-  return gulp.src('./frontend/**/*.html')
+  return gulp.src(['app/**/*.html'])
   .pipe(gulp.dest('./build'));
 });
 
