@@ -8,7 +8,7 @@
 
     <main>
       <h1>Categories</h1>
-      <section data-ng-controller="CategoriesController as categoryiesctrl" data-ng-init="categoriesctrl.getAll()">
+      <section data-ng-controller="CategoriesController as categoriesctrl" data-ng-init="categoriesctrl.getCategory()">
         <form data-ng-submit="categoriesctrl.createCategory()">
           <label for="category">Keyword</label>
           <input id="catName" type="text" name="keyword" data-ng-model="categoriesctrl.newCategory.keyword">
@@ -16,11 +16,11 @@
           <button id="createCategory" type="submit">Create Category</button>
         </form>
 
-        <ul id="categoryList">
+        <!-- <ul id="categoryList">
           <li data-ng-repeat="category in categoriesctrl.categories">
-            
+
           </li>
-        </ul>
+        </ul> -->
       </section>
     </main>
 
