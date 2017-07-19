@@ -56,18 +56,18 @@
 	youflixApp.controller('CategoriesController', ['$http', function($http) {
 	  this.categories = [];
 	
-	  this.getCategory = () => {
-	    $http.get(baseUrl + '/api/categories/:category', this.newCategory)
-	      .then((res) => {
-	        this.categories = res.data;
-	      }, handleError.bind(this));
-	  };
+	  // this.getCategory = () => {
+	  //   $http.get(baseUrl + '/api/categories/:category', this.newCategory)
+	  //     .then((res) => {
+	  //       this.categories = res.data;
+	  //     }, handleError.bind(this));
+	  // };
 	
 	  this.createCategory = () => {
 	    $http.post(baseUrl + '/api/categories', this.newCategory)
 	      .then((res) => {
-	        // console.log(this.categories);
 	        this.categories.push(res.data);
+	        console.log(this.categories);
 	        this.newCategory = null;
 	      }, handleError.bind(this));
 	  };
