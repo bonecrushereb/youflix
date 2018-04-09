@@ -8,7 +8,10 @@ const maps = require('gulp-sourcemaps');
 const minifyCss = require('gulp-minify-css');
 
 let children = [];
-let appFiles = ['*.js', './lib/**/*.js', './backend/routes/**/*.js', './backend/models/**/*.js'];
+let backendFiles = ['*.js', './lib/**/*.js',
+                    './backend/routes/**/*.js',
+                    './backend/models/**/*.js'
+                  ];
 let testFiles = ['./backend/test/**/*.js'];
 
 gulp.task('webpack:dev', () => {
@@ -55,8 +58,8 @@ gulp.task('lint:testFiles', () => {
     .pipe(eslint.format());
 });
 
-gulp.task('lint:appFiles', () => {
-  return gulp.src(appFiles)
+gulp.task('lint:backendFiles', () => {
+  return gulp.src(backendFiles)
     .pipe(eslint())
     .pipe(eslint.format());
 });
@@ -82,9 +85,9 @@ gulp.task('start:server', () => {
   children.push(cp.spawn('webdriver-manager', ['start']));
 });
 
-gulp.task('build:dev', ['webpack:dev', 'static:dev', 'sass:dev']);
-gulp.task('style:dev', ['sass:dev', 'image:dev', 'build:dev']);
+// gulp.task('build:dev', ['webpack:dev', 'static:dev', 'sass:dev']);
+// gulp.task('style:dev', ['sass:dev', 'image:dev', 'build:dev']);
 gulp.task('test', ['test:mocha']);
-gulp.task('lint', ['lint:testFiles', 'lint:appFiles']);
+gulp.task('lint', ['lint:testFiles', 'lint:backendFiles']);
 
 gulp.task('default', ['lint', 'test']);

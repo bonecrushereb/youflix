@@ -35,7 +35,7 @@ describe('the server', () => {
       .get('/api/categories')
       .end((err, res) => {
         expect(err).to.eql(null);
-        expect(typeof(res.body)).to.eql('object');
+        expect(typeof res.body).to.eql('object');
         done();
       });
     });
