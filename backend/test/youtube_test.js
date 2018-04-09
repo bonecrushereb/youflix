@@ -31,11 +31,12 @@ describe('the server', () => {
 
   describe('the GET method', () => {
     it('should search for videos based on the category', (done) => {
+      const keyword = 'surfing';
       request('localhost:' + port)
-      .get('/api/categories')
+      .get('/api/categories/' + keyword)
       .end((err, res) => {
         expect(err).to.eql(null);
-        expect(typeof(res.body)).to.eql('object');
+        expect(typeof res.body).to.eql('object');
         done();
       });
     });
