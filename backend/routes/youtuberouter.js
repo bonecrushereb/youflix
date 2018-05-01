@@ -13,6 +13,7 @@ youtubeRouter.post('/categories', bodyParser, (req, res) => {
 });
 
 youtubeRouter.get('/categories/:category', (req, res) => {
+  currentData = {};
   Youtube.findOne({ keyword: req.params.category }, (err) => {
     if (err) console.log(err);
     var address = 'https://www.googleapis.com/youtube/v3/search';
@@ -21,12 +22,14 @@ youtubeRouter.get('/categories/:category', (req, res) => {
     .query({ part: 'snippet',
             maxResults: 2,
             q: req.params.category,
-            key: process.env.YOUTUBE_API_KEY
+            key: process.env.YOUTUBE_API_KEY,
     })
     .timeout(1000)
     .end((err, data) => {
       if (err) console.log(err);
       res.status(200).json(data);
+      currentData = JSON.parse(data.text);
+      console.log(currentData['items']);
     });
   });
 });
