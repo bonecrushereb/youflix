@@ -11,4 +11,9 @@ app.use((req, res) => {
   res.status(404).send('Page not found');
 });
 
+app.use(express.static(__dirname + '/public'))
+  .get('*', (req, res) => {
+    res.redirect('/public/bundle.js');
+  });
+
 module.exports = exports = app.listen(PORT, () => console.log('server up on port: ', PORT));
