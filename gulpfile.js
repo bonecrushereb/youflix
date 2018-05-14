@@ -1,13 +1,22 @@
 const gulp = require('gulp');
+
+//Backend Imports
 const eslint = require('gulp-eslint');
 const mocha = require('gulp-mocha');
 
-let backendFiles = ['*.js', './lib/**/*.js',
+let backendFiles = ['./backend/*.js', './backend/lib/**/*.js',
                     './backend/routes/**/*.js',
                     './backend/models/**/*.js'
                   ];
 let testFiles = ['./backend/test/**/*.js'];
 
+//FronEnd Imports
+const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
+const react = require('gulp-react');
+const htmlreplace = require('gulp-html-replace');
+
+//Backend Tasks
 gulp.task('test:mocha', () => {
   return gulp.src(testFiles)
     .pipe(mocha());
@@ -25,6 +34,9 @@ gulp.task('lint:backendFiles', () => {
     .pipe(eslint.format());
 });
 
+//FrontEnd tasks
+
+//Processes
 gulp.task('test', ['test:mocha']);
 gulp.task('lint', ['lint:testFiles', 'lint:backendFiles']);
 

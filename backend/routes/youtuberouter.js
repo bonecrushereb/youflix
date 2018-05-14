@@ -31,7 +31,9 @@ youtubeRouter.get('/categories/:category', (req, res) => {
       res.status(200).json(data);
       let currentData = JSON.parse(data.text);
       console.log(currentData);
-      currentData = {} ? pageToken.current = pageToken : pageToken.current = currentData.nextPageToken;
+      // currentData = {} ?
+      //   pageToken.current = pageToken :
+      //   pageToken.current = currentData.nextPageToken;
       console.log(pageToken);
     });
   });
