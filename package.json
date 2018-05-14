@@ -53,16 +53,19 @@
     "superagent": "^3.5.2"
   },
   "devDependencies": {
+    "browserify": "^16.2.2",
     "chai": "^4.0.2",
     "chai-http": "^3.0.0",
     "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.1",
     "gulp-eslint": "^4.0.0",
     "gulp-html-replace": "^1.6.2",
     "gulp-mocha": "^4.3.1",
-    "gulp-react": "^3.1.0",
+    "gulp-streamify": "^1.0.2",
     "gulp-uglify": "^3.0.0",
     "mocha": "^3.4.2",
+    "reactify": "^1.1.1",
+    "vinyl-source-stream": "^2.0.0",
+    "watchify": "^3.11.0",
     "webpack": "^4.6.0",
     "webpack-dev-server": "^3.1.3"
   }
