@@ -28,13 +28,8 @@ youtubeRouter.get('/categories/:category', (req, res) => {
     .timeout(1000)
     .end((err, data) => {
       if (err) console.log(err);
-      res.status(200).json(data);
       let currentData = JSON.parse(data.text);
-      console.log(currentData);
-      // currentData = {} ?
-      //   pageToken.current = pageToken :
-      //   pageToken.current = currentData.nextPageToken;
-      console.log(pageToken);
+      res.status(200).json(currentData);
     });
   });
 });
