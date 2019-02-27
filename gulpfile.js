@@ -1,6 +1,6 @@
 const gulp = require('gulp');
 
-//Backend Imports
+//  Backend Imports
 const eslint = require('gulp-eslint');
 const mocha = require('gulp-mocha');
 
@@ -10,14 +10,14 @@ let backendFiles = ['./backend/*.js', './backend/lib/**/*.js',
                   ];
 let testFiles = ['./backend/test/**/*.js'];
 
-//FronEnd Imports
-const uglify = require('gulp-uglify');
+//  FronEnd Imports
+// const uglify = require('gulp-uglify');
 const htmlreplace = require('gulp-html-replace');
 const source = require('vinyl-source-stream');
 const browserify = require('browserify');
 const watchify = require('watchify');
 const reactify = require('reactify');
-const streamify = require('gulp-streamify');
+// const streamify = require('gulp-streamify');
 
 let frontEndFiles = {
   HTML: 'frontend/public/index.html',
@@ -29,7 +29,7 @@ let frontEndFiles = {
   ENTRY_POINT: './frontend/src/app.js'
 };
 
-//Backend Tasks
+//  Backend Tasks
 gulp.task('test:mocha', () => {
   return gulp.src(testFiles)
     .pipe(mocha());
@@ -47,13 +47,13 @@ gulp.task('lint:backendFiles', () => {
     .pipe(eslint.format());
 });
 
-//FrontEnd tasks
-gulp.task('copy', function() {
+//  FrontEnd tasks
+gulp.task('copy', () => {
   gulp.src(frontEndFiles.HTML)
     .pipe(gulp.dest(frontEndFiles.DEST));
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', () => {
   gulp.watch(frontEndFiles.HMTL, ['copy']);
 
   const watcher = watchify(browserify({
@@ -63,18 +63,18 @@ gulp.task('watch', function() {
     cache: {}, packageCache: {}, fullPaths: true
   }));
 
-  return watcher.on('update', function() {
+  return watcher.on('update', () => {
     watcher.bundle()
       .pipe(source(frontEndFiles.OUT))
-      .pipe(gulp.dest(frontEndFiles.DEST_SRC))
+      .pipe(gulp.dest(frontEndFiles.DEST_SRC));
       console.log('Updated');
   })
     .bundle()
     .pipe(source(frontEndFiles.OUT))
-    .pipe(gulp.dest(frontEndFiles.DEST_SRC))
+    .pipe(gulp.dest(frontEndFiles.DEST_SRC));
 });
 
-gulp.task('build', function() {
+gulp.task('build', () => {
   browserify({
     entries: [frontEndFiles.ENTRY_POINT],
     transform: [reactify]
@@ -84,15 +84,15 @@ gulp.task('build', function() {
     .pipe(gulp.dest(frontEndFiles.DEST_BUILD));
 });
 
-gulp.task('replaceHTMl', function() {
+gulp.task('replaceHTMl', () => {
   gulp.src(frontEndFiles.HTML)
     .pipe(htmlreplace({
-      'js' : 'build/' + frontEndFiles.MINIFIED_OUT 
+      'js': 'build/' + frontEndFiles.MINIFIED_OUT
     }))
     .pipe(gulp.dest(frontEndFiles.DEST));
 });
 
-//Processes
+//  Processes
 gulp.task('test', ['test:mocha']);
 gulp.task('lint', ['lint:testFiles', 'lint:backendFiles']);
 gulp.task('production', ['replaceHTMl', 'build']);
