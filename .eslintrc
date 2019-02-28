@@ -4,6 +4,7 @@ mocha: true,
 node: true,
 es6: true
 },
+globals: { },
 rules: {
 comma-dangle: 2,
 no-cond-assign: 2,
@@ -40,7 +41,6 @@ curly: [
 default-case: 1,
 dot-notation: 1,
 eqeqeq: 1,
-guard-for-in: 1,
 no-alert: 1,
 no-caller: 2,
 no-div-regex: 2,
