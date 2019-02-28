@@ -53,6 +53,7 @@
     "superagent": "^3.5.2"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.1",
     "browserify": "^16.2.2",
     "chai": "^4.0.2",
     "chai-http": "^3.0.0",
