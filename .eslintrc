@@ -237,5 +237,9 @@ no-unneeded-ternary: [
 defaultAssignment: false
 }
 ]
-}
+},
+"parser": "babel-eslint",
+    "parserOptions": {
+        "sourceType": "module",
+    }
 }
