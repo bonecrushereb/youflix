@@ -9,7 +9,8 @@
   "scripts": {
     "test": "gulp",
     "webpack": "webpack",
-    "start": "nodemon server.js"
+    "nodeserver": "nodemon server.js",
+    "client": "live-server public/"
   },
   "repository": {
     "type": "git",

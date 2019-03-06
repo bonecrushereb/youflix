@@ -4,4 +4,4 @@ import YouFlixApp from './components/YouFlixApp';
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 
-ReactDOM.render(<YouFlixApp/>, document.getElementById('app'));
+ReactDOM.render(<p>This is my boilerplate</p>, document.getElementById('app'));

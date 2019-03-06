@@ -11,4 +11,6 @@ app.use((req, res) => {
   res.status(404).send('Page not found');
 });
 
+app.get('/backend', rq,res)e
+
 module.exports = exports = app.listen(PORT, () => console.log('server up on port: ', PORT));
